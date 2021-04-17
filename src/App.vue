@@ -11,15 +11,17 @@ export default {
     const counter = reactive({
       nilai: 0,
     });
-    const addNum = ref(2);
+    const addNum = ref(1);
 
     const add = () => {
+      result.value = 5;
       counter.nilai++;
     };
 
-    const result = computed(() => 
-      counter.nilai + addNum.value
-    );
+    const result = computed({
+      get: () => counter.nilai + addNum.value,
+      set: val => addNum.value = val
+    });
 
     return {
       ...toRefs(counter),
