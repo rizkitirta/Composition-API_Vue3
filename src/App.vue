@@ -1,26 +1,43 @@
 <template>
-  <div>Count : {{ nilai }}</div>
-  <button @click="add">Add</button>
+  <user-component
+    class="active"
+    :label="label"
+    :user="user"
+    blabla="testing"
+    @submit="onSubmit"
+  >
+    <div>Ini Slot</div>
+  </user-component>
+  <button @click="changeName">Change</button>
 </template>
 
 <script>
-import {
-  onBeforeMount,
-  onMounted,
-  onBeforeUpdate,
-  onUpdated,
-  onBeforeUnmount,
-  onUnmounted,
-  onActivated,
-  onDeactivated,
-  onErrorCaptured,
-} from "vue";
+import { ref, reactive } from "vue";
+import UserComponent from "./components/UserComponent.vue";
 export default {
+  components: { UserComponent },
   setup() {
-    return {
+    const label = ref("Biodata");
+    const user = reactive({
+      name: "Rizki",
+      age: 25,
+    });
 
-    }
-  }
+    const changeName = () => {
+      user.name = "Admin Kedua";
+    };
+
+    const onSubmit = (val) => {
+      console.log(val);
+    };
+
+    return {
+      label,
+      user,
+      changeName,
+      onSubmit,
+    };
+  },
 };
 </script>
 
